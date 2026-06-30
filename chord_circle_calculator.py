@@ -9,7 +9,7 @@ CHORD_SEQUENCE = [
 
 st.set_page_config(page_title="Chord Circle Calculator", layout="wide")
 
-st.title("🎵 24コード・サークル計算ツール (Web版)")
+st.title("🎹 24コード・サークル計算ツール (Web版)")
 st.write("五度圏に平行調を挿入した24個のコードを円状に配置し、調性空間上の距離を数値化・計算するツールです。")
 
 # 2. サイドバーでのコントロール（基準設定と回転）
@@ -19,7 +19,7 @@ st.sidebar.header("⚙️ コントロールパネル")
 base_chord = st.sidebar.selectbox("1. 基準コードを選択 (値 = 0.0)", CHORD_SEQUENCE, index=0)
 
 # 中華テーブル風の回転角度調整（スライダーでテーブルをくるくる回す感覚を再現）
-rotation_step = st.sidebar.slider("🔄 テーブルを回転させる (ステップ移動)", -12, 12, 0)
+rotation_step = st.sidebar.slider("テーブルを回転させる", -12, 12, 0)
 
 st.sidebar.markdown("---")
 st.sidebar.write("💡 **仕様・計算規則**")
@@ -31,16 +31,16 @@ st.sidebar.write("- 最短ルート（時計回り・反時計回り）で計算
 col_calc, col_space = st.columns([2, 1])
 
 with col_calc:
-    st.subheader("🧮 コード差分計算")
+    st.subheader("▶ コード差分計算")
     
     col1, col_arrow, col2 = st.columns([2, 1, 2])
     
     with col1:
-        chord1 = st.selectbox("始点コード (□)", CHORD_SEQUENCE, index=0) # デフォルト C
+        chord1 = st.selectbox("始点コード", CHORD_SEQUENCE, index=0) # デフォルト C
     with col_arrow:
         st.markdown("<h2 style='text-align: center; margin-top: 10px;'>→</h2>", unsafe_allow_html=True)
     with col2:
-        chord2 = st.selectbox("終点コード (□)", CHORD_SEQUENCE, index=1) # デフォルト Em
+        chord2 = st.selectbox("終点コード", CHORD_SEQUENCE, index=1) # デフォルト Em
 
 # 4. 計算ロジック
 def get_shortest_distance(name_from, name_to):
@@ -70,9 +70,9 @@ diff_between = get_shortest_distance(chord1, chord2)
 
 # 結果の表示
 with col_calc:
-    st.markdown("### 📊 計算結果")
-    st.info(f"🔹 **始点 {chord1} の値** (基準 {base_chord} から): `{format_sign(val_c1)}`\n"
-            f"🔸 **終点 {chord2} の値** (基準 {base_chord} から): `{format_sign(val_c2)}`")
+    st.markdown("### ▶ 計算結果")
+    st.info(f"🔹 **始点 {chord1} の値** (基準 {base_chord} から)：`{format_sign(val_c1)}`\n"
+            f"🔸 **終点 {chord2} の値** (基準 {base_chord} から)：`{format_sign(val_c2)}`")
     
     # メインのフォーマット表示
     st.markdown(
@@ -84,7 +84,7 @@ with col_calc:
 
 # 5. 円状図形（SVGによる描画）の作成
 st.markdown("---")
-st.subheader("🎡 コード・サークル盤面 (中華テーブル風)")
+st.subheader("コード・サークル盤面")
 st.write("※サイドバーの「テーブルを回転させる」スライダーを動かすと、盤面全体がスムーズに回転します。")
 
 # SVGを使った美しい円盤の描画
